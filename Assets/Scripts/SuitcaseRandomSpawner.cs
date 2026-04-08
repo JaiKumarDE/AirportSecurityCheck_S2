@@ -32,9 +32,28 @@ public class SuitcaseRandomSpawner : MonoBehaviour
         public float yOffset = 0.01f;
     }
 
+    [Header("Layers")]
     [SerializeField] private SpawnLayer[] layers = new SpawnLayer[3];
+
+    [Header("General")]
     [SerializeField] private Transform spawnedItemsParent;
     [SerializeField] private bool spawnOnStart = true;
+
+    [Header("Interior Bounds")]
+    [Tooltip("BoxCollider, der den Innenraum des Koffers beschreibt.")]
+    [SerializeField] private BoxCollider interiorBoundsCollider;
+
+    [Header("Auto Scale")]
+    [SerializeField] private bool autoScalePrefabs = true;
+    [SerializeField][Range(0.1f, 1f)] private float fitPercent = 0.9f;
+    [SerializeField] private float minScaleMultiplier = 0.05f;
+    [SerializeField] private float maxScaleMultiplier = 10f;
+
+    [Header("Fallback Rotation")]
+    [SerializeField] private bool rotateFlatIfOutside = true;
+    [SerializeField] private float flatXRotation = -90f;
+    [SerializeField][Range(0.5f, 1f)] private float extraShrinkIfStillOutside = 0.9f;
+    [SerializeField] private int fitAttemptsAfterRotation = 3;
 
     private void Start()
     {
@@ -118,19 +137,22 @@ public class SuitcaseRandomSpawner : MonoBehaviour
             MarkOccupied(occupied, chosen.x, chosen.y, sizeX, sizeZ);
 
             Vector3 spawnPos = GetCellWorldPosition(layer, chosen.x, chosen.y, sizeX, sizeZ);
-
             Quaternion worldRot = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
 
             Transform parent = spawnedItemsParent != null ? spawnedItemsParent : transform;
 
             GameObject obj = Instantiate(prefab, spawnPos, worldRot);
             obj.name = "SPAWNED_" + prefab.name + "_" + layer.name + "_" + placedCount;
-
-            // Parent setzen, aber Weltposition beibehalten
             obj.transform.SetParent(parent, true);
 
-            // Optional: falls Renderer vorhanden sind, Objekt leicht über die Layer-Ebene setzen
+            if (autoScalePrefabs)
+            {
+                FitObjectIntoReservedCells(obj, layer, sizeX, sizeZ);
+            }
+
             RaiseObjectToRestOnLayer(obj, layer);
+
+            ResolveOutsideBounds(obj, layer, sizeX, sizeZ);
 
             placedCount++;
         }
@@ -179,10 +201,6 @@ public class SuitcaseRandomSpawner : MonoBehaviour
         }
     }
 
-    // WICHTIG:
-    // cellSizeX / cellSizeZ sind WELT-Einheiten.
-    // Wenn der Layer oder Koffer skaliert ist, rechnen wir die Scale raus,
-    // damit das Grid trotzdem in der gewünschten Weltgröße bleibt.
     private Vector3 GetCellWorldPosition(SpawnLayer layer, int cellX, int cellZ, int sizeX, int sizeZ)
     {
         Vector3 lossy = layer.layerTransform.lossyScale;
@@ -209,17 +227,39 @@ public class SuitcaseRandomSpawner : MonoBehaviour
         return layer.layerTransform.TransformPoint(localPoint);
     }
 
+    private void FitObjectIntoReservedCells(GameObject obj, SpawnLayer layer, int sizeX, int sizeZ)
+    {
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+        if (renderers == null || renderers.Length == 0)
+            return;
+
+        Bounds bounds = GetCombinedRendererBounds(renderers);
+
+        float currentWidth = bounds.size.x;
+        float currentDepth = bounds.size.z;
+
+        if (currentWidth <= 0.0001f || currentDepth <= 0.0001f)
+            return;
+
+        float targetWidth = layer.cellSizeX * sizeX * fitPercent;
+        float targetDepth = layer.cellSizeZ * sizeZ * fitPercent;
+
+        float widthScaleFactor = targetWidth / currentWidth;
+        float depthScaleFactor = targetDepth / currentDepth;
+
+        float uniformScaleFactor = Mathf.Min(widthScaleFactor, depthScaleFactor);
+        uniformScaleFactor = Mathf.Clamp(uniformScaleFactor, minScaleMultiplier, maxScaleMultiplier);
+
+        obj.transform.localScale *= uniformScaleFactor;
+    }
+
     private void RaiseObjectToRestOnLayer(GameObject obj, SpawnLayer layer)
     {
         Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
         if (renderers == null || renderers.Length == 0)
             return;
 
-        Bounds combinedBounds = renderers[0].bounds;
-        for (int i = 1; i < renderers.Length; i++)
-        {
-            combinedBounds.Encapsulate(renderers[i].bounds);
-        }
+        Bounds combinedBounds = GetCombinedRendererBounds(renderers);
 
         float bottomY = combinedBounds.min.y;
         float targetY = layer.layerTransform.position.y + layer.yOffset;
@@ -228,63 +268,122 @@ public class SuitcaseRandomSpawner : MonoBehaviour
         obj.transform.position += new Vector3(0f, delta, 0f);
     }
 
+    private void ResolveOutsideBounds(GameObject obj, SpawnLayer layer, int sizeX, int sizeZ)
+    {
+        if (interiorBoundsCollider == null)
+            return;
+
+        if (IsObjectInsideInterior(obj))
+            return;
+
+        if (!rotateFlatIfOutside)
+            return;
+
+        // Fallback: flach legen
+        float randomY = Random.Range(0f, 360f);
+        obj.transform.rotation = Quaternion.Euler(flatXRotation, randomY, 0f);
+
+        if (autoScalePrefabs)
+        {
+            FitObjectIntoReservedCells(obj, layer, sizeX, sizeZ);
+        }
+
+        RaiseObjectToRestOnLayer(obj, layer);
+
+        for (int i = 0; i < fitAttemptsAfterRotation; i++)
+        {
+            if (IsObjectInsideInterior(obj))
+                return;
+
+            obj.transform.localScale *= extraShrinkIfStillOutside;
+            RaiseObjectToRestOnLayer(obj, layer);
+        }
+    }
+
+    private bool IsObjectInsideInterior(GameObject obj)
+    {
+        if (interiorBoundsCollider == null)
+            return true;
+
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+        if (renderers == null || renderers.Length == 0)
+            return true;
+
+        Bounds objectBounds = GetCombinedRendererBounds(renderers);
+        Bounds interior = interiorBoundsCollider.bounds;
+
+        return
+            objectBounds.min.x >= interior.min.x &&
+            objectBounds.max.x <= interior.max.x &&
+            objectBounds.min.y >= interior.min.y &&
+            objectBounds.max.y <= interior.max.y &&
+            objectBounds.min.z >= interior.min.z &&
+            objectBounds.max.z <= interior.max.z;
+    }
+
+    private Bounds GetCombinedRendererBounds(Renderer[] renderers)
+    {
+        Bounds combinedBounds = renderers[0].bounds;
+        for (int i = 1; i < renderers.Length; i++)
+        {
+            combinedBounds.Encapsulate(renderers[i].bounds);
+        }
+        return combinedBounds;
+    }
+
     private void OnDrawGizmosSelected()
     {
-        if (layers == null) return;
-
-        foreach (var layer in layers)
+        if (layers != null)
         {
-            if (layer == null || layer.layerTransform == null) continue;
-
-            Vector3 lossy = layer.layerTransform.lossyScale;
-
-            float safeScaleX = Mathf.Abs(lossy.x);
-            float safeScaleZ = Mathf.Abs(lossy.z);
-
-            if (safeScaleX < 0.0001f) safeScaleX = 1f;
-            if (safeScaleZ < 0.0001f) safeScaleZ = 1f;
-
-            float localCellSizeX = layer.cellSizeX / safeScaleX;
-            float localCellSizeZ = layer.cellSizeZ / safeScaleZ;
-
-            float totalWidthLocal = layer.columns * localCellSizeX;
-            float totalDepthLocal = layer.rows * localCellSizeZ;
-
-            Vector3 origin = layer.layerTransform.TransformPoint(new Vector3(0f, layer.yOffset, 0f));
-            Vector3 right = layer.layerTransform.right;
-            Vector3 forward = layer.layerTransform.forward;
-
-            Vector3 bottomLeft =
-                origin
-                - right * (layer.columns * layer.cellSizeX * 0.5f)
-                - forward * (layer.rows * layer.cellSizeZ * 0.5f);
-
-            Gizmos.color = Color.cyan;
-
-            for (int x = 0; x <= layer.columns; x++)
+            foreach (var layer in layers)
             {
-                Vector3 from = bottomLeft + right * (x * layer.cellSizeX);
-                Vector3 to = from + forward * (layer.rows * layer.cellSizeZ);
-                Gizmos.DrawLine(from, to);
-            }
+                if (layer == null || layer.layerTransform == null) continue;
 
-            for (int z = 0; z <= layer.rows; z++)
-            {
-                Vector3 from = bottomLeft + forward * (z * layer.cellSizeZ);
-                Vector3 to = from + right * (layer.columns * layer.cellSizeX);
-                Gizmos.DrawLine(from, to);
-            }
+                Vector3 origin = layer.layerTransform.TransformPoint(new Vector3(0f, layer.yOffset, 0f));
+                Vector3 right = layer.layerTransform.right;
+                Vector3 forward = layer.layerTransform.forward;
 
-            Gizmos.color = Color.red;
+                Vector3 bottomLeft =
+                    origin
+                    - right * (layer.columns * layer.cellSizeX * 0.5f)
+                    - forward * (layer.rows * layer.cellSizeZ * 0.5f);
 
-            for (int x = 0; x < layer.columns; x++)
-            {
-                for (int z = 0; z < layer.rows; z++)
+                Gizmos.color = Color.cyan;
+
+                for (int x = 0; x <= layer.columns; x++)
                 {
-                    Vector3 p = GetCellWorldPosition(layer, x, z, 1, 1);
-                    Gizmos.DrawSphere(p, 0.015f);
+                    Vector3 from = bottomLeft + right * (x * layer.cellSizeX);
+                    Vector3 to = from + forward * (layer.rows * layer.cellSizeZ);
+                    Gizmos.DrawLine(from, to);
+                }
+
+                for (int z = 0; z <= layer.rows; z++)
+                {
+                    Vector3 from = bottomLeft + forward * (z * layer.cellSizeZ);
+                    Vector3 to = from + right * (layer.columns * layer.cellSizeX);
+                    Gizmos.DrawLine(from, to);
+                }
+
+                Gizmos.color = Color.red;
+
+                for (int x = 0; x < layer.columns; x++)
+                {
+                    for (int z = 0; z < layer.rows; z++)
+                    {
+                        Vector3 p = GetCellWorldPosition(layer, x, z, 1, 1);
+                        Gizmos.DrawSphere(p, 0.015f);
+                    }
                 }
             }
+        }
+
+        if (interiorBoundsCollider != null)
+        {
+            Gizmos.color = Color.yellow;
+            Matrix4x4 oldMatrix = Gizmos.matrix;
+            Gizmos.matrix = interiorBoundsCollider.transform.localToWorldMatrix;
+            Gizmos.DrawWireCube(interiorBoundsCollider.center, interiorBoundsCollider.size);
+            Gizmos.matrix = oldMatrix;
         }
     }
 }
