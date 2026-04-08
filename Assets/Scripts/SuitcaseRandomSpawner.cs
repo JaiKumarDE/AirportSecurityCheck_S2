@@ -279,7 +279,6 @@ public class SuitcaseRandomSpawner : MonoBehaviour
         if (!rotateFlatIfOutside)
             return;
 
-        // Fallback: flach legen
         float randomY = Random.Range(0f, 360f);
         obj.transform.rotation = Quaternion.Euler(flatXRotation, randomY, 0f);
 
