@@ -8808,7 +8808,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -740.52, y: -276.23}
+  m_AnchoredPosition: {x: -758.94, y: -223.1}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &854454896
@@ -8833,9 +8833,12 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Space -  Stop/Go
 
+    V - Spawn next Koffer
+
     B - Umdrehen
 
-    N - Verlangsamen
+    N -
+    Verlangsamen
 
     M - Beschleunigen'
   m_isRightToLeft: 0
