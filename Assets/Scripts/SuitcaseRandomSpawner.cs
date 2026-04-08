@@ -9,11 +9,16 @@ public class SuitcaseRandomSpawner : MonoBehaviour
         public string name;
         public Transform layerTransform;
 
-        [Header("Grid")]
+        [Header("Grid Size (WORLD UNITS)")]
+        [Tooltip("Breite einer Zelle in Welt-Einheiten")]
+        public float cellSizeX = 0.18f;
+
+        [Tooltip("Tiefe einer Zelle in Welt-Einheiten")]
+        public float cellSizeZ = 0.18f;
+
+        [Header("Grid Count")]
         public int columns = 6;
         public int rows = 4;
-        public float cellSizeX = 0.18f;
-        public float cellSizeZ = 0.18f;
 
         [Header("Spawn Count")]
         public int minItems = 2;
@@ -21,6 +26,10 @@ public class SuitcaseRandomSpawner : MonoBehaviour
 
         [Header("Possible Prefabs")]
         public GameObject[] possiblePrefabs;
+
+        [Header("Optional")]
+        [Tooltip("Kleiner Offset nach oben, damit Items nicht im Boden stecken")]
+        public float yOffset = 0.01f;
     }
 
     [SerializeField] private SpawnLayer[] layers = new SpawnLayer[3];
@@ -52,6 +61,7 @@ public class SuitcaseRandomSpawner : MonoBehaviour
         Transform parent = spawnedItemsParent != null ? spawnedItemsParent : transform;
 
         List<GameObject> toDelete = new List<GameObject>();
+
         for (int i = 0; i < parent.childCount; i++)
         {
             Transform child = parent.GetChild(i);
@@ -76,13 +86,14 @@ public class SuitcaseRandomSpawner : MonoBehaviour
 
     private void SpawnLayerItems(SpawnLayer layer)
     {
+        if (layer == null) return;
         if (layer.layerTransform == null) return;
         if (layer.possiblePrefabs == null || layer.possiblePrefabs.Length == 0) return;
 
         bool[,] occupied = new bool[layer.columns, layer.rows];
         int targetCount = Random.Range(layer.minItems, layer.maxItems + 1);
         int placedCount = 0;
-        int safety = 500;
+        int safety = 1000;
 
         while (placedCount < targetCount && safety-- > 0)
         {
@@ -100,18 +111,26 @@ public class SuitcaseRandomSpawner : MonoBehaviour
             }
 
             List<Vector2Int> validCells = GetValidCells(layer, occupied, sizeX, sizeZ);
-            if (validCells.Count == 0) break;
+            if (validCells.Count == 0)
+                break;
 
             Vector2Int chosen = validCells[Random.Range(0, validCells.Count)];
-
             MarkOccupied(occupied, chosen.x, chosen.y, sizeX, sizeZ);
 
             Vector3 spawnPos = GetCellWorldPosition(layer, chosen.x, chosen.y, sizeX, sizeZ);
-            Quaternion rot = Quaternion.Euler(0f, Random.Range(0, 360f), 0f);
+
+            Quaternion worldRot = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
 
             Transform parent = spawnedItemsParent != null ? spawnedItemsParent : transform;
-            GameObject obj = Instantiate(prefab, spawnPos, rot, parent);
+
+            GameObject obj = Instantiate(prefab, spawnPos, worldRot);
             obj.name = "SPAWNED_" + prefab.name + "_" + layer.name + "_" + placedCount;
+
+            // Parent setzen, aber Weltposition beibehalten
+            obj.transform.SetParent(parent, true);
+
+            // Optional: falls Renderer vorhanden sind, Objekt leicht über die Layer-Ebene setzen
+            RaiseObjectToRestOnLayer(obj, layer);
 
             placedCount++;
         }
@@ -141,7 +160,8 @@ public class SuitcaseRandomSpawner : MonoBehaviour
         {
             for (int z = startZ; z < startZ + sizeZ; z++)
             {
-                if (occupied[x, z]) return false;
+                if (occupied[x, z])
+                    return false;
             }
         }
 
@@ -159,51 +179,111 @@ public class SuitcaseRandomSpawner : MonoBehaviour
         }
     }
 
+    // WICHTIG:
+    // cellSizeX / cellSizeZ sind WELT-Einheiten.
+    // Wenn der Layer oder Koffer skaliert ist, rechnen wir die Scale raus,
+    // damit das Grid trotzdem in der gewünschten Weltgröße bleibt.
     private Vector3 GetCellWorldPosition(SpawnLayer layer, int cellX, int cellZ, int sizeX, int sizeZ)
     {
-        float totalWidth = layer.columns * layer.cellSizeX;
-        float totalDepth = layer.rows * layer.cellSizeZ;
+        Vector3 lossy = layer.layerTransform.lossyScale;
 
-        float startX = -totalWidth * 0.5f;
-        float startZ = -totalDepth * 0.5f;
+        float safeScaleX = Mathf.Abs(lossy.x);
+        float safeScaleZ = Mathf.Abs(lossy.z);
 
-        float posX = startX + (cellX * layer.cellSizeX) + (sizeX * layer.cellSizeX * 0.5f);
-        float posZ = startZ + (cellZ * layer.cellSizeZ) + (sizeZ * layer.cellSizeZ * 0.5f);
+        if (safeScaleX < 0.0001f) safeScaleX = 1f;
+        if (safeScaleZ < 0.0001f) safeScaleZ = 1f;
 
-        return layer.layerTransform.TransformPoint(new Vector3(posX, 0f, posZ));
+        float localCellSizeX = layer.cellSizeX / safeScaleX;
+        float localCellSizeZ = layer.cellSizeZ / safeScaleZ;
+
+        float totalWidthLocal = layer.columns * localCellSizeX;
+        float totalDepthLocal = layer.rows * localCellSizeZ;
+
+        float startXLocal = -totalWidthLocal * 0.5f;
+        float startZLocal = -totalDepthLocal * 0.5f;
+
+        float posXLocal = startXLocal + (cellX * localCellSizeX) + (sizeX * localCellSizeX * 0.5f);
+        float posZLocal = startZLocal + (cellZ * localCellSizeZ) + (sizeZ * localCellSizeZ * 0.5f);
+
+        Vector3 localPoint = new Vector3(posXLocal, layer.yOffset, posZLocal);
+        return layer.layerTransform.TransformPoint(localPoint);
+    }
+
+    private void RaiseObjectToRestOnLayer(GameObject obj, SpawnLayer layer)
+    {
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+        if (renderers == null || renderers.Length == 0)
+            return;
+
+        Bounds combinedBounds = renderers[0].bounds;
+        for (int i = 1; i < renderers.Length; i++)
+        {
+            combinedBounds.Encapsulate(renderers[i].bounds);
+        }
+
+        float bottomY = combinedBounds.min.y;
+        float targetY = layer.layerTransform.position.y + layer.yOffset;
+
+        float delta = targetY - bottomY;
+        obj.transform.position += new Vector3(0f, delta, 0f);
     }
 
     private void OnDrawGizmosSelected()
     {
         if (layers == null) return;
 
-        Gizmos.color = Color.cyan;
-
         foreach (var layer in layers)
         {
             if (layer == null || layer.layerTransform == null) continue;
 
-            float totalWidth = layer.columns * layer.cellSizeX;
-            float totalDepth = layer.rows * layer.cellSizeZ;
+            Vector3 lossy = layer.layerTransform.lossyScale;
 
-            Vector3 origin = layer.layerTransform.position;
+            float safeScaleX = Mathf.Abs(lossy.x);
+            float safeScaleZ = Mathf.Abs(lossy.z);
+
+            if (safeScaleX < 0.0001f) safeScaleX = 1f;
+            if (safeScaleZ < 0.0001f) safeScaleZ = 1f;
+
+            float localCellSizeX = layer.cellSizeX / safeScaleX;
+            float localCellSizeZ = layer.cellSizeZ / safeScaleZ;
+
+            float totalWidthLocal = layer.columns * localCellSizeX;
+            float totalDepthLocal = layer.rows * localCellSizeZ;
+
+            Vector3 origin = layer.layerTransform.TransformPoint(new Vector3(0f, layer.yOffset, 0f));
             Vector3 right = layer.layerTransform.right;
             Vector3 forward = layer.layerTransform.forward;
 
-            Vector3 bottomLeft = origin - right * totalWidth * 0.5f - forward * totalDepth * 0.5f;
+            Vector3 bottomLeft =
+                origin
+                - right * (layer.columns * layer.cellSizeX * 0.5f)
+                - forward * (layer.rows * layer.cellSizeZ * 0.5f);
+
+            Gizmos.color = Color.cyan;
 
             for (int x = 0; x <= layer.columns; x++)
             {
                 Vector3 from = bottomLeft + right * (x * layer.cellSizeX);
-                Vector3 to = from + forward * totalDepth;
+                Vector3 to = from + forward * (layer.rows * layer.cellSizeZ);
                 Gizmos.DrawLine(from, to);
             }
 
             for (int z = 0; z <= layer.rows; z++)
             {
                 Vector3 from = bottomLeft + forward * (z * layer.cellSizeZ);
-                Vector3 to = from + right * totalWidth;
+                Vector3 to = from + right * (layer.columns * layer.cellSizeX);
                 Gizmos.DrawLine(from, to);
+            }
+
+            Gizmos.color = Color.red;
+
+            for (int x = 0; x < layer.columns; x++)
+            {
+                for (int z = 0; z < layer.rows; z++)
+                {
+                    Vector3 p = GetCellWorldPosition(layer, x, z, 1, 1);
+                    Gizmos.DrawSphere(p, 0.015f);
+                }
             }
         }
     }
