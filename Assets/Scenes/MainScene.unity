@@ -4557,7 +4557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnKey: 118
-  suitcasePrefab: {fileID: 3886398111806733815, guid: 8800bb84e823e064397392954ca3cd77, type: 3}
+  suitcasePrefab: {fileID: 6048215727954914838, guid: f3c888e127b5f5545bc01ffb438891f5, type: 3}
   spawnPoint: {fileID: 1197096466}
   spawnEulerRotation: {x: -90, y: 0, z: 0}
   destroyOldSuitcaseBeforeSpawn: 1

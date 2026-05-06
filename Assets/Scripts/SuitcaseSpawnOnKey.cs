@@ -70,7 +70,7 @@ public class SuitcaseSpawnOnKey : MonoBehaviour
         if (randomSpawner != null)
         {
             randomSpawner.ClearSpawned();
-            randomSpawner.SpawnAllLayers();
+            randomSpawner.SpawnAllItems();
         }
         else
         {
