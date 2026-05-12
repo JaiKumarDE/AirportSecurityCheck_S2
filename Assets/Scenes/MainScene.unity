@@ -20639,8 +20639,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tagFarben:
   - tagName: K
+    farbe: {r: 0.53584903, g: 0.7664273, b: 1, a: 0}
+    alpha: 0.054
+  - tagName: Bedenklich
+    farbe: {r: 1, g: 1, b: 0, a: 0}
+    alpha: 0.5
+  - tagName: Illegal
     farbe: {r: 1, g: 0, b: 0, a: 0}
-    alpha: 0.509
+    alpha: 1
+  - tagName: Legal
+    farbe: {r: 0, g: 1, b: 0, a: 0}
+    alpha: 0.2
+  - tagName: Bedenklich 2
+    farbe: {r: 1, g: 1, b: 0, a: 0}
+    alpha: 1
 --- !u!4 &1959268818
 Transform:
   m_ObjectHideFlags: 0
