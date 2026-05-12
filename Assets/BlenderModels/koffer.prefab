@@ -263,21 +263,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnArea: {fileID: 3859058759083576032}
   fixedPrefabs:
-  - {fileID: 5803526799604188113, guid: a82b2bd0a23f0624e8c89fbc243ab33d, type: 3}
-  - {fileID: 3652308909723834059, guid: 8e171afe2055be3499380aae6e0ae207, type: 3}
-  - {fileID: 1670118392468306189, guid: 00d2007c1a6287046a9cf1c30922bac2, type: 3}
-  - {fileID: 9073669971595069417, guid: f81b02c57ed5fcf4191edfeb5ce9dc3e, type: 3}
-  - {fileID: 2538654183870130214, guid: 85f5d621fa3b30f4da41fb4989de0b78, type: 3}
+  - {fileID: 1989755944510849783, guid: 97a38bd590ed00f469d2081a31f826f1, type: 3}
   - {fileID: 6258197955242685566, guid: 31642b23d5f676d4f94fec02ae52c6ac, type: 3}
-  - {fileID: 118384265638501437, guid: 3a64686c3a3d72b44a9baa08040126a5, type: 3}
+  - {fileID: 2538654183870130214, guid: 85f5d621fa3b30f4da41fb4989de0b78, type: 3}
+  - {fileID: 9073669971595069417, guid: f81b02c57ed5fcf4191edfeb5ce9dc3e, type: 3}
+  - {fileID: 5803526799604188113, guid: a82b2bd0a23f0624e8c89fbc243ab33d, type: 3}
   randomPrefabs:
   - {fileID: 5803526799604188113, guid: a82b2bd0a23f0624e8c89fbc243ab33d, type: 3}
   - {fileID: 118384265638501437, guid: 3a64686c3a3d72b44a9baa08040126a5, type: 3}
-  - {fileID: 2538654183870130214, guid: 85f5d621fa3b30f4da41fb4989de0b78, type: 3}
-  - {fileID: 1670118392468306189, guid: 00d2007c1a6287046a9cf1c30922bac2, type: 3}
+  - {fileID: 3652308909723834059, guid: 8e171afe2055be3499380aae6e0ae207, type: 3}
   - {fileID: 1670118392468306189, guid: 00d2007c1a6287046a9cf1c30922bac2, type: 3}
   - {fileID: 6258197955242685566, guid: 31642b23d5f676d4f94fec02ae52c6ac, type: 3}
-  - {fileID: 3652308909723834059, guid: 8e171afe2055be3499380aae6e0ae207, type: 3}
+  - {fileID: 2538654183870130214, guid: 85f5d621fa3b30f4da41fb4989de0b78, type: 3}
+  - {fileID: 8421859338913721734, guid: cb29a9990843a924dbb43376527170a3, type: 3}
+  - {fileID: 4056712589930460142, guid: 2e453ce8a9d5eda4f870263ab9242c84, type: 3}
+  - {fileID: 9073669971595069417, guid: f81b02c57ed5fcf4191edfeb5ce9dc3e, type: 3}
   cellSize: 0.2
   maxItems: 200
   randomYRotation: 1
