@@ -110,3 +110,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: 5211912223082619409, guid: e8af3d0a5cc1d734fa13af3ceb300228, type: 3}
+  scanMaterial: {fileID: 2100000, guid: b16c1598d58d3fc4d9a72b1ea3ec215b, type: 2}

@@ -294,6 +294,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: -3805902862780536821, guid: 553d39d12c591be458b22b194ca8b4f8, type: 3}
+  scanMaterial: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
 --- !u!1 &522574905313672798 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1927996530848348917, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
@@ -333,6 +335,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: 0}
+  scanMaterial: {fileID: 0}
 --- !u!1 &1602022157562609734 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8378218059018238739, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
@@ -372,6 +376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: -3805902862780536821, guid: 553d39d12c591be458b22b194ca8b4f8, type: 3}
+  scanMaterial: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
 --- !u!1 &1797468713560741226 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8831288392834805311, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
@@ -411,6 +417,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: -8975059667587205458, guid: d3a98d6e8f81b4f48aaab65e9ec6ef95, type: 3}
+  scanMaterial: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
 --- !u!1 &2189801724863340962 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8943396056853125879, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
@@ -450,6 +458,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: -3805902862780536821, guid: 553d39d12c591be458b22b194ca8b4f8, type: 3}
+  scanMaterial: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
 --- !u!1 &2806580181243033656 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4939348778663281517, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
@@ -489,6 +499,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: -3805902862780536821, guid: 553d39d12c591be458b22b194ca8b4f8, type: 3}
+  scanMaterial: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
 --- !u!1 &3607886107858435242 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3427477867675547649, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
@@ -528,6 +540,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: -3805902862780536821, guid: 553d39d12c591be458b22b194ca8b4f8, type: 3}
+  scanMaterial: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
 --- !u!1 &3650840617481075660 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3398939572537753447, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
@@ -567,6 +581,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: -8975059667587205458, guid: d3a98d6e8f81b4f48aaab65e9ec6ef95, type: 3}
+  scanMaterial: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
 --- !u!1 &4112950353189551661 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6587302578339857784, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
@@ -606,6 +622,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: -3805902862780536821, guid: 553d39d12c591be458b22b194ca8b4f8, type: 3}
+  scanMaterial: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
 --- !u!1 &4484394590425574863 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6648768097671419546, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
@@ -645,6 +663,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: -3805902862780536821, guid: 553d39d12c591be458b22b194ca8b4f8, type: 3}
+  scanMaterial: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
 --- !u!1 &6428255352604040815 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4272559704765359418, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
@@ -684,6 +704,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: -3805902862780536821, guid: 553d39d12c591be458b22b194ca8b4f8, type: 3}
+  scanMaterial: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
 --- !u!1 &7490455163661211039 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 400150817025044170, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
@@ -723,6 +745,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: 0}
+  scanMaterial: {fileID: 0}
 --- !u!1 &8919106171324495198 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7369602528204157429, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
@@ -762,3 +786,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: -3805902862780536821, guid: 553d39d12c591be458b22b194ca8b4f8, type: 3}
+  scanMaterial: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}

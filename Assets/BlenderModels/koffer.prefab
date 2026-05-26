@@ -205,6 +205,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: -6939038467388572059, guid: e9866029ab47e3b4fbe70bcbb21e6ea5, type: 3}
+  scanMaterial: {fileID: 2100000, guid: 2557911e4036c2d48ba531cd15510a89, type: 2}
 --- !u!1 &3078834814380590082 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 66584611351947859, guid: e9866029ab47e3b4fbe70bcbb21e6ea5, type: 3}
@@ -244,6 +246,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanAreaTag: XRayArea
+  normalesMaterial: {fileID: -6939038467388572059, guid: e9866029ab47e3b4fbe70bcbb21e6ea5, type: 3}
+  scanMaterial: {fileID: 2100000, guid: 2557911e4036c2d48ba531cd15510a89, type: 2}
 --- !u!1 &6048215727954914838 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8771091787928289351, guid: e9866029ab47e3b4fbe70bcbb21e6ea5, type: 3}
