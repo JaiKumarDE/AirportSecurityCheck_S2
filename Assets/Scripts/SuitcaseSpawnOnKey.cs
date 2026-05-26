@@ -16,17 +16,11 @@ public class SuitcaseSpawnOnKey : MonoBehaviour
 
     [Header("Options")]
     [SerializeField] private bool destroyOldSuitcaseBeforeSpawn = false;
-    [SerializeField] private bool spawnOnStart = false;
+
+    [Header("Duplicate System")]
+    [SerializeField] private DuplicateCurrentSuitcase duplicateSystem;
 
     private GameObject currentSuitcaseInstance;
-
-    private void Start()
-    {
-        if (spawnOnStart)
-        {
-            SpawnSuitcase();
-        }
-    }
 
     private void Update()
     {
@@ -40,16 +34,17 @@ public class SuitcaseSpawnOnKey : MonoBehaviour
     {
         if (suitcasePrefab == null)
         {
-            Debug.LogWarning("SuitcaseSpawnOnKey: Kein suitcasePrefab zugewiesen.");
+            Debug.LogWarning("Kein Suitcase Prefab gesetzt!");
             return;
         }
 
         if (spawnPoint == null)
         {
-            Debug.LogWarning("SuitcaseSpawnOnKey: Kein spawnPoint zugewiesen.");
+            Debug.LogWarning("Kein Spawn Point gesetzt!");
             return;
         }
 
+        // Alten Koffer löschen
         if (destroyOldSuitcaseBeforeSpawn && currentSuitcaseInstance != null)
         {
             Destroy(currentSuitcaseInstance);
@@ -57,24 +52,37 @@ public class SuitcaseSpawnOnKey : MonoBehaviour
 
         Quaternion rot = Quaternion.Euler(spawnEulerRotation);
 
-        GameObject newSuitcase = Instantiate(
+        // Koffer spawnen
+        currentSuitcaseInstance = Instantiate(
             suitcasePrefab,
             spawnPoint.position,
             rot
         );
 
-        currentSuitcaseInstance = newSuitcase;
+        // Name setzen
+        currentSuitcaseInstance.name = "koffer(Clone)";
 
-        SuitcaseRandomSpawner randomSpawner = newSuitcase.GetComponent<SuitcaseRandomSpawner>();
+        // ITEMS SPAWNEN
+        SuitcaseRandomSpawner randomSpawner =
+            currentSuitcaseInstance.GetComponent<SuitcaseRandomSpawner>();
 
         if (randomSpawner != null)
         {
             randomSpawner.ClearSpawned();
             randomSpawner.SpawnAllItems();
         }
+
+        // GANZ WICHTIG:
+        // aktuellen Koffer an Duplicate Script senden
+        if (duplicateSystem != null)
+        {
+            duplicateSystem.SetCurrentSuitcase(currentSuitcaseInstance);
+
+            Debug.Log("Aktueller Koffer gesetzt!");
+        }
         else
         {
-            Debug.LogWarning("SuitcaseSpawnOnKey: SuitcaseRandomSpawner fehlt auf dem Prefab.");
+            Debug.LogWarning("Duplicate System fehlt!");
         }
     }
 }

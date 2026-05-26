@@ -2,16 +2,39 @@ using UnityEngine;
 
 public class CameraSwitcher : MonoBehaviour
 {
+    [Header("Cameras")]
     public Camera camera1;
     public Camera camera2;
+    public Camera camera3;
 
-    private bool usingFirstCamera = true;
+    private int currentCameraIndex = 0;
+
+    private Camera[] cameras;
 
     void Start()
     {
-        // Startzustand
-        camera1.enabled = true;
-        camera2.enabled = false;
+        // Array erstellen
+        cameras = new Camera[]
+        {
+            camera1,
+            camera2,
+            camera3
+        };
+
+        // Alle Kameras ausschalten
+        foreach (Camera cam in cameras)
+        {
+            if (cam != null)
+            {
+                cam.enabled = false;
+            }
+        }
+
+        // Erste Kamera aktivieren
+        if (cameras.Length > 0 && cameras[0] != null)
+        {
+            cameras[0].enabled = true;
+        }
     }
 
     void Update()
@@ -24,9 +47,21 @@ public class CameraSwitcher : MonoBehaviour
 
     void SwitchCamera()
     {
-        usingFirstCamera = !usingFirstCamera;
+        // Aktuelle Kamera ausschalten
+        cameras[currentCameraIndex].enabled = false;
 
-        camera1.enabled = usingFirstCamera;
-        camera2.enabled = !usingFirstCamera;
+        // Zur nächsten Kamera wechseln
+        currentCameraIndex++;
+
+        // Wieder von vorne anfangen
+        if (currentCameraIndex >= cameras.Length)
+        {
+            currentCameraIndex = 0;
+        }
+
+        // Neue Kamera aktivieren
+        cameras[currentCameraIndex].enabled = true;
+
+        Debug.Log("Aktive Kamera: " + cameras[currentCameraIndex].name);
     }
 }
