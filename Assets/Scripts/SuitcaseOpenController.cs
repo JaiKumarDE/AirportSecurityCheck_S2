@@ -12,17 +12,23 @@ public class SuitcaseOpenController : MonoBehaviour
     [SerializeField] private string lidObjectName = "Lid";
 
     [Header("Öffnungsrotation")]
-    [SerializeField] private Vector3 openRotation = new Vector3(-120f, 0f, 0f);
+    [SerializeField]
+    private Vector3 openRotation =
+        new Vector3(-120f, 0f, 0f);
 
     [Header("Geschwindigkeit")]
-    [SerializeField] private float openSpeed = 4f;
+    [SerializeField]
+    private float openSpeed = 4f;
 
     private Transform currentLid;
 
     private bool isOpen;
 
     private Quaternion closedRotation;
+
     private Quaternion targetRotation;
+
+    // =====================================================
 
     private void Update()
     {
@@ -35,13 +41,16 @@ public class SuitcaseOpenController : MonoBehaviour
         // Animation
         if (currentLid != null)
         {
-            currentLid.localRotation = Quaternion.Lerp(
-                currentLid.localRotation,
-                targetRotation,
-                Time.deltaTime * openSpeed
-            );
+            currentLid.localRotation =
+                Quaternion.Lerp(
+                    currentLid.localRotation,
+                    targetRotation,
+                    Time.deltaTime * openSpeed
+                );
         }
     }
+
+    // =====================================================
 
     private void ToggleSuitcase()
     {
@@ -50,34 +59,39 @@ public class SuitcaseOpenController : MonoBehaviour
 
         if (copySuitcase == null)
         {
-            Debug.LogWarning("Kein koffer_Copy vorhanden!");
+            Debug.LogWarning(
+                "Kein koffer_Copy vorhanden!"
+            );
+
             return;
         }
 
         // DECKEL SUCHEN
-        currentLid = FindChildByName(
-            copySuitcase.transform,
-            lidObjectName
-        );
+        currentLid =
+            FindChildByName(
+                copySuitcase.transform,
+                lidObjectName
+            );
 
         if (currentLid == null)
         {
             Debug.LogWarning(
-                "Deckel nicht gefunden! Name prüfen: " + lidObjectName
+                "Deckel nicht gefunden! Name prüfen: "
+                + lidObjectName
             );
+
             return;
         }
 
-        // Rotation speichern
         closedRotation = Quaternion.identity;
 
-        // Zustand wechseln
         isOpen = !isOpen;
 
         // Zielrotation
         if (isOpen)
         {
-            targetRotation = Quaternion.Euler(openRotation);
+            targetRotation =
+                Quaternion.Euler(openRotation);
         }
         else
         {
@@ -87,8 +101,12 @@ public class SuitcaseOpenController : MonoBehaviour
         Debug.Log("Koffer geöffnet/geschlossen!");
     }
 
-    // Child rekursiv suchen
-    private Transform FindChildByName(Transform parent, string searchName)
+    // =====================================================
+
+    private Transform FindChildByName(
+        Transform parent,
+        string searchName
+    )
     {
         foreach (Transform child in parent)
         {
@@ -97,7 +115,11 @@ public class SuitcaseOpenController : MonoBehaviour
                 return child;
             }
 
-            Transform result = FindChildByName(child, searchName);
+            Transform result =
+                FindChildByName(
+                    child,
+                    searchName
+                );
 
             if (result != null)
                 return result;
