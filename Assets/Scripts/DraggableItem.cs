@@ -4,160 +4,114 @@ public class DraggableItem : MonoBehaviour
 {
     private static DraggableItem currentDragged;
 
-    private Camera cam;
+    [SerializeField] private float smoothSpeed = 20f;
 
-    private bool dragging;
+    private Camera inspectCam;
 
-    private float distanceToCamera;
-
-    private Vector3 offset;
-
+    private bool isDragging;
+    private float dragDistance;
+    private Vector3 dragOffset;
     private Vector3 targetPosition;
+    private Vector3 velocity;
 
-    [SerializeField]
-    private float smoothSpeed = 15f;
+    private void Awake()
+    {
+        inspectCam = GameObject.FindGameObjectWithTag("Inspect")?.GetComponent<Camera>();
 
-    // =====================================================
+        // Sicherheit: Collider automatisch hinzufügen
+        if (GetComponent<Collider>() == null)
+        {
+            gameObject.AddComponent<BoxCollider>();
+        }
+    }
 
     private void Start()
     {
         targetPosition = transform.position;
     }
 
-    // =====================================================
-
     private void Update()
     {
-        // IMMER aktive Kamera holen
-        cam = GetActiveCamera();
-
-        if (cam == null)
+        if (inspectCam == null)
+        {
+            inspectCam = GameObject.FindGameObjectWithTag("Inspect")?.GetComponent<Camera>();
             return;
-
-        // =========================================
-        // MAUS KLICK
-        // =========================================
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
-            TryStartDragging();
+            StartDrag();
         }
-
-        // =========================================
-        // MAUS LOS
-        // =========================================
 
         if (Input.GetMouseButtonUp(0))
         {
-            StopDragging();
+            StopDrag();
         }
 
-        // =========================================
-        // DRAGGING
-        // =========================================
-
-        if (dragging)
+        if (isDragging)
         {
-            Ray ray =
-                cam.ScreenPointToRay(
-                    Input.mousePosition
-                );
-
-            Vector3 mouseWorldPos =
-                ray.GetPoint(distanceToCamera);
-
-            targetPosition =
-                mouseWorldPos + offset;
+            UpdateDrag();
         }
 
-        // Smooth movement
-        transform.position =
-            Vector3.Lerp(
-                transform.position,
-                targetPosition,
-                Time.deltaTime * smoothSpeed
-            );
+        transform.position = Vector3.SmoothDamp(
+            transform.position,
+            targetPosition,
+            ref velocity,
+            0.05f
+        );
     }
 
-    // =====================================================
-
-    private void TryStartDragging()
+    private void StartDrag()
     {
-        // Schon ein anderes Objekt aktiv
-        if (
-            currentDragged != null
-            && currentDragged != this
-        )
-        {
+        if (currentDragged != null)
             return;
-        }
 
-        Ray ray =
-            cam.ScreenPointToRay(
-                Input.mousePosition
-            );
+        Ray ray = inspectCam.ScreenPointToRay(Input.mousePosition);
 
-        if (
-            Physics.Raycast(
-                ray,
-                out RaycastHit hit,
-                1000f
-            )
-        )
+        RaycastHit[] hits = Physics.RaycastAll(
+            ray,
+            1000f,
+            ~0,
+            QueryTriggerInteraction.Collide
+        );
+
+        foreach (RaycastHit hit in hits)
         {
-            // WICHTIG:
-            // Parent check
-            if (
-                hit.transform == transform
-                || hit.transform.IsChildOf(transform)
-            )
+            if (hit.transform == transform ||
+                hit.transform.IsChildOf(transform) ||
+                transform.IsChildOf(hit.transform))
             {
                 currentDragged = this;
+                isDragging = true;
 
-                dragging = true;
-
-                distanceToCamera =
-                    Vector3.Distance(
-                        cam.transform.position,
-                        transform.position
-                    );
-
-                Vector3 mouseWorldPos =
-                    ray.GetPoint(distanceToCamera);
-
-                offset =
+                dragDistance = Vector3.Distance(
+                    inspectCam.transform.position,
                     transform.position
-                    - mouseWorldPos;
+                );
+
+                Vector3 mouseWorldPos = ray.GetPoint(dragDistance);
+                dragOffset = transform.position - mouseWorldPos;
+
+                return;
             }
         }
     }
 
-    // =====================================================
-
-    private void StopDragging()
+    private void StopDrag()
     {
         if (currentDragged == this)
         {
-            dragging = false;
-
             currentDragged = null;
+            isDragging = false;
         }
     }
 
-    // =====================================================
-
-    private Camera GetActiveCamera()
+    private void UpdateDrag()
     {
-        Camera[] cams = Camera.allCameras;
+        Ray ray = inspectCam.ScreenPointToRay(Input.mousePosition);
 
-        foreach (Camera c in cams)
-        {
-            if (c.enabled && c.gameObject.activeInHierarchy)
-            {
-                return c;
-            }
-        }
+        Vector3 mouseWorldPos = ray.GetPoint(dragDistance);
 
-        return null;
+        targetPosition = mouseWorldPos + dragOffset;
     }
 }

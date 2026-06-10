@@ -64,6 +64,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -2436488121980189515, guid: 20b7bd8d00dfadc46baf2c9927c409eb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -9075064724207296590}
     - targetCorrespondingSourceObject: {fileID: -3886124274073016969, guid: 20b7bd8d00dfadc46baf2c9927c409eb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6997842852331274885}
@@ -112,3 +115,29 @@ MonoBehaviour:
   scanAreaTag: XRayArea
   normalesMaterial: {fileID: 5723329192619326990, guid: 20b7bd8d00dfadc46baf2c9927c409eb, type: 3}
   scanMaterial: {fileID: 2100000, guid: 0aeed192a3a9b5545bcd08d47e411db7, type: 2}
+--- !u!1 &8421859338913721734 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2436488121980189515, guid: 20b7bd8d00dfadc46baf2c9927c409eb, type: 3}
+  m_PrefabInstance: {fileID: 3084876155651336499}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &-9075064724207296590
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8421859338913721734}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.4, y: 0.4, z: 0.4}
+  m_Center: {x: 0, y: 0, z: 0}

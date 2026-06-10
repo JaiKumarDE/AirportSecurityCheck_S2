@@ -10,6 +10,7 @@ TagManager:
   - Legal
   - Illegal
   - Bendeklich 2
+  - Inspect
   layers:
   - Default
   - TransparentFX
