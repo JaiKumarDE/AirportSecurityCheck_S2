@@ -17,6 +17,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: caf45727a89f3a3479802a399ed6f277, type: 2}
     - target: {fileID: 7058051054332189946, guid: 45605e1a243de014bb69e6ce61536fca, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058051054332189946, guid: 45605e1a243de014bb69e6ce61536fca, type: 3}
       propertyPath: m_TagString
       value: Bedenklich
       objectReference: {fileID: 0}
@@ -25,12 +29,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 2e3f5f6c5ae1e5146b4bfff2b3877d10, type: 2}
     - target: {fileID: 8566833914505195895, guid: 45605e1a243de014bb69e6ce61536fca, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566833914505195895, guid: 45605e1a243de014bb69e6ce61536fca, type: 3}
       propertyPath: m_TagString
       value: Bedenklich
       objectReference: {fileID: 0}
     - target: {fileID: 8861619556329658369, guid: 45605e1a243de014bb69e6ce61536fca, type: 3}
       propertyPath: m_Name
       value: colaZero (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8861619556329658369, guid: 45605e1a243de014bb69e6ce61536fca, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8954961372037985608, guid: 45605e1a243de014bb69e6ce61536fca, type: 3}
       propertyPath: m_LocalScale.x

@@ -4,43 +4,33 @@ public class DraggableItem : MonoBehaviour
 {
     private static DraggableItem currentDragged;
 
-    [SerializeField] private float smoothSpeed = 20f;
-
     private Camera inspectCam;
 
     private bool isDragging;
     private float dragDistance;
     private Vector3 dragOffset;
-    private Vector3 targetPosition;
-    private Vector3 velocity;
 
-    private void Awake()
+    private void Start()
     {
         inspectCam = GameObject.FindGameObjectWithTag("Inspect")?.GetComponent<Camera>();
 
-        // Sicherheit: Collider automatisch hinzufügen
+        Debug.Log("Inspect Kamera: " + inspectCam);
+
+        // Falls kein Collider vorhanden ist
         if (GetComponent<Collider>() == null)
         {
             gameObject.AddComponent<BoxCollider>();
         }
     }
 
-    private void Start()
-    {
-        targetPosition = transform.position;
-    }
-
     private void Update()
     {
         if (inspectCam == null)
-        {
-            inspectCam = GameObject.FindGameObjectWithTag("Inspect")?.GetComponent<Camera>();
             return;
-        }
 
         if (Input.GetMouseButtonDown(0))
         {
-            StartDrag();
+            TryStartDrag();
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -50,36 +40,27 @@ public class DraggableItem : MonoBehaviour
 
         if (isDragging)
         {
-            UpdateDrag();
+            DragObject();
         }
-
-        transform.position = Vector3.SmoothDamp(
-            transform.position,
-            targetPosition,
-            ref velocity,
-            0.05f
-        );
     }
 
-    private void StartDrag()
+    private void TryStartDrag()
     {
         if (currentDragged != null)
             return;
 
+        Debug.Log("Mausklick erkannt");
+
         Ray ray = inspectCam.ScreenPointToRay(Input.mousePosition);
 
-        RaycastHit[] hits = Physics.RaycastAll(
-            ray,
-            1000f,
-            ~0,
-            QueryTriggerInteraction.Collide
-        );
+        // Nur Objekte auf dem Layer "Ziehen" treffen
+        int ziehenLayer = LayerMask.GetMask("Ziehen");
 
-        foreach (RaycastHit hit in hits)
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, ziehenLayer))
         {
-            if (hit.transform == transform ||
-                hit.transform.IsChildOf(transform) ||
-                transform.IsChildOf(hit.transform))
+            Debug.Log("Getroffen: " + hit.transform.name);
+
+            if (hit.transform == transform)
             {
                 currentDragged = this;
                 isDragging = true;
@@ -91,8 +72,6 @@ public class DraggableItem : MonoBehaviour
 
                 Vector3 mouseWorldPos = ray.GetPoint(dragDistance);
                 dragOffset = transform.position - mouseWorldPos;
-
-                return;
             }
         }
     }
@@ -106,12 +85,12 @@ public class DraggableItem : MonoBehaviour
         }
     }
 
-    private void UpdateDrag()
+    private void DragObject()
     {
         Ray ray = inspectCam.ScreenPointToRay(Input.mousePosition);
 
         Vector3 mouseWorldPos = ray.GetPoint(dragDistance);
 
-        targetPosition = mouseWorldPos + dragOffset;
+        transform.position = mouseWorldPos + dragOffset;
     }
 }

@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: mangaOP
       objectReference: {fileID: 0}
+    - target: {fileID: -7147500265994091014, guid: de59fdb649196ad4981aafebf137b79c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1084121518258074396, guid: de59fdb649196ad4981aafebf137b79c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -60,6 +64,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 4a7ec944f1213d64290a1945b5f8198f, type: 2}
+    - target: {fileID: 8432033744855160792, guid: de59fdb649196ad4981aafebf137b79c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8432033744855160792, guid: de59fdb649196ad4981aafebf137b79c, type: 3}
       propertyPath: m_TagString
       value: Legal

@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8615614150229483958, guid: 832413d4d65a7f54db9cd2eb852d3d97, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -2839472169942815976, guid: 832413d4d65a7f54db9cd2eb852d3d97, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -23,6 +27,14 @@ PrefabInstance:
     - target: {fileID: 670797905808594111, guid: 832413d4d65a7f54db9cd2eb852d3d97, type: 3}
       propertyPath: m_Name
       value: monsterVR46
+      objectReference: {fileID: 0}
+    - target: {fileID: 670797905808594111, guid: 832413d4d65a7f54db9cd2eb852d3d97, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727930041849865309, guid: 832413d4d65a7f54db9cd2eb852d3d97, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1849478986362966185, guid: 832413d4d65a7f54db9cd2eb852d3d97, type: 3}
       propertyPath: m_LocalPosition.x
@@ -65,8 +77,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1936231863568356255, guid: 832413d4d65a7f54db9cd2eb852d3d97, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936231863568356255, guid: 832413d4d65a7f54db9cd2eb852d3d97, type: 3}
       propertyPath: m_TagString
       value: Bedenklich
+      objectReference: {fileID: 0}
+    - target: {fileID: 4486562421766887419, guid: 832413d4d65a7f54db9cd2eb852d3d97, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

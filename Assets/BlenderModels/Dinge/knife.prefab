@@ -57,6 +57,10 @@ PrefabInstance:
       value: knife
       objectReference: {fileID: 0}
     - target: {fileID: 899256599953074753, guid: e8af3d0a5cc1d734fa13af3ceb300228, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 899256599953074753, guid: e8af3d0a5cc1d734fa13af3ceb300228, type: 3}
       propertyPath: m_TagString
       value: Illegal
       objectReference: {fileID: 0}

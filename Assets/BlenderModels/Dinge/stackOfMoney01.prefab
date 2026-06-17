@@ -49,6 +49,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4175201232579714611, guid: f68540b6c081d3147bc7fa396f5222b6, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4175201232579714611, guid: f68540b6c081d3147bc7fa396f5222b6, type: 3}
       propertyPath: m_TagString
       value: Bedenklich
       objectReference: {fileID: 0}
@@ -63,6 +67,10 @@ PrefabInstance:
     - target: {fileID: 7347625619485752138, guid: f68540b6c081d3147bc7fa396f5222b6, type: 3}
       propertyPath: m_Name
       value: stackOfMoney01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7347625619485752138, guid: f68540b6c081d3147bc7fa396f5222b6, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

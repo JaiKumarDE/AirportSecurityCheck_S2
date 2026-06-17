@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: glock
       objectReference: {fileID: 0}
+    - target: {fileID: 2656959617020404779, guid: bb4392f19ca2838468cbb856b0077dea, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4049364779070310268, guid: bb4392f19ca2838468cbb856b0077dea, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -55,6 +59,10 @@ PrefabInstance:
     - target: {fileID: 4929073568071903805, guid: bb4392f19ca2838468cbb856b0077dea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5845065258258575548, guid: bb4392f19ca2838468cbb856b0077dea, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5845065258258575548, guid: bb4392f19ca2838468cbb856b0077dea, type: 3}
       propertyPath: m_TagString

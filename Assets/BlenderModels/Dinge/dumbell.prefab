@@ -13,28 +13,56 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 591d706bc1e4bf748888485fa25c946d, type: 2}
     - target: {fileID: -7350473191402711771, guid: da42d43b477c5634493021365181d55b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -7350473191402711771, guid: da42d43b477c5634493021365181d55b, type: 3}
       propertyPath: m_TagString
       value: Bedenklich
+      objectReference: {fileID: 0}
+    - target: {fileID: -7077694323378133520, guid: da42d43b477c5634493021365181d55b, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -7077694323378133520, guid: da42d43b477c5634493021365181d55b, type: 3}
       propertyPath: m_TagString
       value: Bedenklich
       objectReference: {fileID: 0}
     - target: {fileID: -6075673305163077017, guid: da42d43b477c5634493021365181d55b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -6075673305163077017, guid: da42d43b477c5634493021365181d55b, type: 3}
       propertyPath: m_TagString
       value: Bedenklich
+      objectReference: {fileID: 0}
+    - target: {fileID: -4217221176234485819, guid: da42d43b477c5634493021365181d55b, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -4217221176234485819, guid: da42d43b477c5634493021365181d55b, type: 3}
       propertyPath: m_TagString
       value: Bedenklich
       objectReference: {fileID: 0}
     - target: {fileID: -3613905635108643768, guid: da42d43b477c5634493021365181d55b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -3613905635108643768, guid: da42d43b477c5634493021365181d55b, type: 3}
       propertyPath: m_TagString
       value: Bedenklich
       objectReference: {fileID: 0}
     - target: {fileID: -3301131290614283836, guid: da42d43b477c5634493021365181d55b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -3301131290614283836, guid: da42d43b477c5634493021365181d55b, type: 3}
       propertyPath: m_TagString
       value: Bedenklich
+      objectReference: {fileID: 0}
+    - target: {fileID: -2458049761781012254, guid: da42d43b477c5634493021365181d55b, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -2458049761781012254, guid: da42d43b477c5634493021365181d55b, type: 3}
       propertyPath: m_TagString
@@ -44,6 +72,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 591d706bc1e4bf748888485fa25c946d, type: 2}
+    - target: {fileID: -2180703402571029997, guid: da42d43b477c5634493021365181d55b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -2180703402571029997, guid: da42d43b477c5634493021365181d55b, type: 3}
       propertyPath: m_TagString
       value: Bedenklich
@@ -116,9 +148,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: dumbell
       objectReference: {fileID: 0}
+    - target: {fileID: 4469588265370632641, guid: da42d43b477c5634493021365181d55b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5356954645384443854, guid: da42d43b477c5634493021365181d55b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5356954645384443854, guid: da42d43b477c5634493021365181d55b, type: 3}
       propertyPath: m_TagString
       value: Bedenklich
+      objectReference: {fileID: 0}
+    - target: {fileID: 5694502072871088519, guid: da42d43b477c5634493021365181d55b, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5694502072871088519, guid: da42d43b477c5634493021365181d55b, type: 3}
       propertyPath: m_TagString
@@ -140,6 +184,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 591d706bc1e4bf748888485fa25c946d, type: 2}
+    - target: {fileID: 8131739099711100478, guid: da42d43b477c5634493021365181d55b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8131739099711100478, guid: da42d43b477c5634493021365181d55b, type: 3}
       propertyPath: m_TagString
       value: Bedenklich

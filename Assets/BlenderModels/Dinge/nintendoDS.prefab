@@ -21,6 +21,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
     - target: {fileID: -7369602528204157429, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -7369602528204157429, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
       propertyPath: m_TagString
       value: Bendeklich 2
       objectReference: {fileID: 0}
@@ -41,8 +45,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
     - target: {fileID: -3427477867675547649, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -3427477867675547649, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
       propertyPath: m_TagString
       value: Bendeklich 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -3398939572537753447, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -3398939572537753447, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
       propertyPath: m_TagString
@@ -53,8 +65,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
     - target: {fileID: -2061671450956624358, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2061671450956624358, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
       propertyPath: m_TagString
       value: Bendeklich 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1927996530848348917, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -1927996530848348917, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
       propertyPath: m_TagString
@@ -105,6 +125,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400150817025044170, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 400150817025044170, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
       propertyPath: m_TagString
       value: Bendeklich 2
       objectReference: {fileID: 0}
@@ -124,13 +148,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: nintendoDS
       objectReference: {fileID: 0}
+    - target: {fileID: 3794137169430875947, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4153344610058821988, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
     - target: {fileID: 4272559704765359418, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4272559704765359418, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
       propertyPath: m_TagString
       value: Bendeklich 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4939348778663281517, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4939348778663281517, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
       propertyPath: m_TagString
@@ -141,8 +177,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
     - target: {fileID: 6587302578339857784, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587302578339857784, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
       propertyPath: m_TagString
       value: Bendeklich 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6648768097671419546, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6648768097671419546, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
       propertyPath: m_TagString
@@ -161,12 +205,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 98136b61e9c823742a7ef2635c752c71, type: 2}
     - target: {fileID: 8378218059018238739, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378218059018238739, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
       propertyPath: m_TagString
       value: Bendeklich 2
       objectReference: {fileID: 0}
     - target: {fileID: 8831288392834805311, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831288392834805311, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
       propertyPath: m_TagString
       value: Bedenklich
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943396056853125879, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8943396056853125879, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
       propertyPath: m_TagString
