@@ -28,7 +28,7 @@ public class KeyHintUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             hintText.text =
-                "Jetzt kannst du die items draggen.";
+                "Jetzt kannst du die items mit Maus draggen.";
         }
         /*
         if (Input.GetKeyDown(KeyCode.B))
