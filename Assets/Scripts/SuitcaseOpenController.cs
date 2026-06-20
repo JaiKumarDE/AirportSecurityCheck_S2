@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 
 public class SuitcaseOpenController : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class SuitcaseOpenController : MonoBehaviour
     [Header("Name vom Deckel Objekt")]
     [SerializeField] private string lidObjectName = "Lid";
 
-    [Header("÷ffnungsrotation")]
+    [Header("√ñffnungsrotation")]
     [SerializeField]
     private Vector3 openRotation =
         new Vector3(-120f, 0f, 0f);
@@ -32,13 +32,19 @@ public class SuitcaseOpenController : MonoBehaviour
 
     private void Update()
     {
-        // P gedr¸ckt
+        // ‚ùó Tutorial-Check (Step 6 = P erlaubt)
+        if (!TutorialManager.Instance.TutorialFinished &&
+            TutorialManager.Instance.Step != 6)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(openKey))
         {
+            Debug.Log("P gedr√ºckt");
             ToggleSuitcase();
         }
 
-        // Animation
         if (currentLid != null)
         {
             currentLid.localRotation =
@@ -49,7 +55,6 @@ public class SuitcaseOpenController : MonoBehaviour
                 );
         }
     }
-
     // =====================================================
 
     private void ToggleSuitcase()
@@ -76,7 +81,7 @@ public class SuitcaseOpenController : MonoBehaviour
         if (currentLid == null)
         {
             Debug.LogWarning(
-                "Deckel nicht gefunden! Name pr¸fen: "
+                "Deckel nicht gefunden! Name pr√ºfen: "
                 + lidObjectName
             );
 
@@ -98,7 +103,7 @@ public class SuitcaseOpenController : MonoBehaviour
             targetRotation = closedRotation;
         }
 
-        Debug.Log("Koffer geˆffnet/geschlossen!");
+        Debug.Log("Koffer ge√∂ffnet/geschlossen!");
     }
 
     // =====================================================

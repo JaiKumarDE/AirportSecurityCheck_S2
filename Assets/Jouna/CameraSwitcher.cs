@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraSwitcher : MonoBehaviour
 {
@@ -39,8 +39,21 @@ public class CameraSwitcher : MonoBehaviour
 
     void Update()
     {
+        // ❗ Step 1 und 4 = S erlaubt im Tutorial
+        // ❗ nach Tutorial = alles frei (außer S kann global blockiert sein)
+        if (!TutorialManager.Instance.TutorialFinished &&
+            TutorialManager.Instance.Step != 1 &&
+            TutorialManager.Instance.Step != 4)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.S))
         {
+            // ❗ S bleibt nach Tutorial dauerhaft blockierbar
+            if (TutorialManager.Instance.BlockSForever)
+                return;
+
             SwitchCamera();
         }
     }
@@ -50,7 +63,7 @@ public class CameraSwitcher : MonoBehaviour
         // Aktuelle Kamera ausschalten
         cameras[currentCameraIndex].enabled = false;
 
-        // Zur n�chsten Kamera wechseln
+        // Zur nächsten Kamera wechseln
         currentCameraIndex++;
 
         // Wieder von vorne anfangen

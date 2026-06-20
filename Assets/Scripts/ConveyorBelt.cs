@@ -30,8 +30,15 @@ public class ConveyorBelt : MonoBehaviour
 
     private void Update()
     {
+        
+
+       
+
         if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("SPACE pressed");
             isMoving = !isMoving;
+        }
 
         if (Input.GetKey(KeyCode.M))
         {

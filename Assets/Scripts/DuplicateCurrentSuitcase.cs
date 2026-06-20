@@ -16,6 +16,12 @@ public class DuplicateCurrentSuitcase : MonoBehaviour
 
     private void Update()
     {
+        if (!TutorialManager.Instance.TutorialFinished &&
+            TutorialManager.Instance.Step != 5)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(duplicateKey))
         {
             DuplicateSuitcase();

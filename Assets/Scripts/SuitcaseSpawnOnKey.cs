@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SuitcaseSpawnOnKey : MonoBehaviour
 {
@@ -24,6 +24,14 @@ public class SuitcaseSpawnOnKey : MonoBehaviour
 
     private void Update()
     {
+        // ❗ Step 2 = erlaubt im Tutorial
+        // ❗ nach Tutorial = alles frei
+        if (!TutorialManager.Instance.TutorialFinished &&
+            TutorialManager.Instance.Step != 2)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(spawnKey))
         {
             SpawnSuitcase();
@@ -44,7 +52,7 @@ public class SuitcaseSpawnOnKey : MonoBehaviour
             return;
         }
 
-        // Alten Koffer l�schen
+        // Alten Koffer löschen
         if (destroyOldSuitcaseBeforeSpawn && currentSuitcaseInstance != null)
         {
             Destroy(currentSuitcaseInstance);
