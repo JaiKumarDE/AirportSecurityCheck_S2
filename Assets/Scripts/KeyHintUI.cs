@@ -1,5 +1,5 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
+using TMPro;
 
 public class KeyHintUI : MonoBehaviour
 {
@@ -42,11 +42,11 @@ Drücke ENTER um zu starten.";
                 if (Input.GetKeyDown(KeyCode.V))
                 {
                     TutorialManager.Instance.Step = 3;
-                    hintText.text = "Drücke LEERTASTE um das Laufband zu stoppen.";
+                    hintText.text = "Drücke LEERTASTE um das Laufband zu stoppen und wieder zu starten." +
+                        "Stoppe das Lauf band so das der Koffer auf dem Screen gut sichtbar ist.";
                 }
                 break;
 
-            // 🔥 SPACE STEP (IMPORTANT)
             case 3:
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
@@ -71,13 +71,12 @@ Drücke ENTER um zu starten.";
                 }
                 break;
 
-            // 🔥 P WITH DELAY (FIXED SAFE VERSION)
             case 6:
                 if (Input.GetKeyDown(KeyCode.P) && !waitingAfterP)
                 {
                     waitingAfterP = true;
 
-                    hintText.text = "Koffer wird geöffnet..";
+                    hintText.text = "Koffer wird geöffnet...";
 
                     StartCoroutine(PauseAfterP());
                 }
@@ -87,7 +86,14 @@ Drücke ENTER um zu starten.";
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
                     TutorialManager.Instance.Step = 8;
-                    hintText.text = "Tutorial abgeschlossen!\nDrücke ENTER um zu beenden.";
+
+                    hintText.text =
+@"Tutorial abgeschlossen!
+
+Entscheide nun, ob der Koffer
+LEGAL, ILLEGAL oder BEDENKLICH ist.
+
+Drücke ENTER um das Tutorial zu schließen.";
                 }
                 break;
 
@@ -100,13 +106,14 @@ Drücke ENTER um zu starten.";
                         uiPanel.SetActive(false);
 
                     TutorialManager.Instance.TutorialFinished = true;
-                    TutorialManager.Instance.BlockSForever = true;
+
+                    // S nach Tutorial NICHT blockieren
+                    TutorialManager.Instance.BlockSForever = false;
                 }
                 break;
         }
     }
 
-    // 🔥 FIXED DELAY
     private System.Collections.IEnumerator PauseAfterP()
     {
         yield return new WaitForSeconds(3f);

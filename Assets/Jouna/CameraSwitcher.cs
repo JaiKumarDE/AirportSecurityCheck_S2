@@ -3,44 +3,27 @@
 public class CameraSwitcher : MonoBehaviour
 {
     [Header("Cameras")]
-    public Camera camera1;
-    public Camera camera2;
-    public Camera camera3;
+    public GameObject camera1;
+    public GameObject camera2;
+    public GameObject camera3;
 
+    private GameObject[] cameras;
     private int currentCameraIndex = 0;
-
-    private Camera[] cameras;
 
     void Start()
     {
-        // Array erstellen
-        cameras = new Camera[]
+        cameras = new GameObject[]
         {
             camera1,
             camera2,
             camera3
         };
 
-        // Alle Kameras ausschalten
-        foreach (Camera cam in cameras)
-        {
-            if (cam != null)
-            {
-                cam.enabled = false;
-            }
-        }
-
-        // Erste Kamera aktivieren
-        if (cameras.Length > 0 && cameras[0] != null)
-        {
-            cameras[0].enabled = true;
-        }
+        SetCamera(0);
     }
 
     void Update()
     {
-        // ❗ Step 1 und 4 = S erlaubt im Tutorial
-        // ❗ nach Tutorial = alles frei (außer S kann global blockiert sein)
         if (!TutorialManager.Instance.TutorialFinished &&
             TutorialManager.Instance.Step != 1 &&
             TutorialManager.Instance.Step != 4)
@@ -50,31 +33,54 @@ public class CameraSwitcher : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            // ❗ S bleibt nach Tutorial dauerhaft blockierbar
-            if (TutorialManager.Instance.BlockSForever)
-                return;
-
-            SwitchCamera();
+            HandleS();
         }
     }
 
-    void SwitchCamera()
+    // 🔥 S LOGIK (TUTORIAL + LOOP)
+    void HandleS()
     {
-        // Aktuelle Kamera ausschalten
-        cameras[currentCameraIndex].enabled = false;
-
-        // Zur nächsten Kamera wechseln
-        currentCameraIndex++;
-
-        // Wieder von vorne anfangen
-        if (currentCameraIndex >= cameras.Length)
+        if (!TutorialManager.Instance.TutorialFinished)
         {
-            currentCameraIndex = 0;
+            // Tutorial: normal weiter
+            int next = currentCameraIndex + 1;
+
+            if (next >= cameras.Length)
+                next = 0;
+
+            SetCamera(next);
+            return;
         }
 
-        // Neue Kamera aktivieren
-        cameras[currentCameraIndex].enabled = true;
+        // 🔥 NACH TUTORIAL: S nur 1 ↔ 2 LOOP
+        if (currentCameraIndex == 1)
+            SetCamera(2);
+        else
+            SetCamera(1);
+    }
 
-        Debug.Log("Aktive Kamera: " + cameras[currentCameraIndex].name);
+    // 🔥 BUTTONS
+    public void SelectCamera(int index)
+    {
+        if (!TutorialManager.Instance.TutorialFinished)
+            return;
+
+        SetCamera(index);
+    }
+
+    // 🔥 SAFE SWITCH (KEIN BUG MEHR)
+    void SetCamera(int index)
+    {
+        if (index < 0 || index >= cameras.Length)
+            return;
+
+        for (int i = 0; i < cameras.Length; i++)
+        {
+            cameras[i].SetActive(i == index);
+        }
+
+        currentCameraIndex = index;
+
+        Debug.Log("Aktive Kamera: " + cameras[index].name);
     }
 }
