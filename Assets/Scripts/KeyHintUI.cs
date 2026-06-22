@@ -1,16 +1,35 @@
 ﻿using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class KeyHintUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI hintText;
     [SerializeField] private GameObject uiPanel;
 
+    // 🔥 NEU: Automatisch über Tags finden
+    private GameObject bildObjekt;
+    private GameObject textObjekt;
+    private GameObject panelObjekt;
+
     private bool waitingAfterP = false;
 
     private void Start()
     {
-        uiPanel.SetActive(true);
+        // 🔥 Objekte anhand ihrer Tags finden
+        bildObjekt = GameObject.FindGameObjectWithTag("Bild");
+        textObjekt = GameObject.FindGameObjectWithTag("Text");
+        panelObjekt = GameObject.FindGameObjectWithTag("Panel");
+
+        // UI aktivieren
+        if (panelObjekt != null)
+            panelObjekt.SetActive(true);
+
+        if (bildObjekt != null)
+            bildObjekt.SetActive(true);
+
+        if (textObjekt != null)
+            textObjekt.SetActive(true);
 
         hintText.text =
 @"Hallo, willkommen bei ASC!
@@ -42,8 +61,9 @@ Drücke ENTER um zu starten.";
                 if (Input.GetKeyDown(KeyCode.V))
                 {
                     TutorialManager.Instance.Step = 3;
-                    hintText.text = "Drücke LEERTASTE um das Laufband zu stoppen und wieder zu starten." +
-                        "Stoppe das Lauf band so das der Koffer auf dem Screen gut sichtbar ist.";
+                    hintText.text =
+"Drücke LEERTASTE um das Laufband zu stoppen und wieder zu starten.\n" +
+"Stoppe das Laufband so, dass der Koffer gut sichtbar ist.";
                 }
                 break;
 
@@ -102,12 +122,17 @@ Drücke ENTER um das Tutorial zu schließen.";
                 {
                     hintText.text = "";
 
-                    if (uiPanel != null)
-                        uiPanel.SetActive(false);
+                    // 🔥 ALLES AUSBLENDEN
+                    if (panelObjekt != null)
+                        panelObjekt.SetActive(false);
+
+                    if (bildObjekt != null)
+                        bildObjekt.SetActive(false);
+
+                    if (textObjekt != null)
+                        textObjekt.SetActive(false);
 
                     TutorialManager.Instance.TutorialFinished = true;
-
-                    // S nach Tutorial NICHT blockieren
                     TutorialManager.Instance.BlockSForever = false;
                 }
                 break;

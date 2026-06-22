@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2235388849091105735, guid: da03497dc1e7378408b02724de8fa064, type: 3}
+      propertyPath: m_TagString
+      value: Legal
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

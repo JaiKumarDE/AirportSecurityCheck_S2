@@ -11,6 +11,9 @@ TagManager:
   - Illegal
   - Bendeklich 2
   - Inspect
+  - Bild
+  - Text
+  - Panel
   layers:
   - Default
   - TransparentFX

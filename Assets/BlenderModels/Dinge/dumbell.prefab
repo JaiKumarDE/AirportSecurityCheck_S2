@@ -152,6 +152,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4469588265370632641, guid: da42d43b477c5634493021365181d55b, type: 3}
+      propertyPath: m_TagString
+      value: Bedenklich
+      objectReference: {fileID: 0}
     - target: {fileID: 5356954645384443854, guid: da42d43b477c5634493021365181d55b, type: 3}
       propertyPath: m_Layer
       value: 6

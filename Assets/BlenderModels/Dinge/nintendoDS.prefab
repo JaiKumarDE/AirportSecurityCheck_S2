@@ -152,6 +152,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3794137169430875947, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
+      propertyPath: m_TagString
+      value: Bedenklich
+      objectReference: {fileID: 0}
     - target: {fileID: 4153344610058821988, guid: 1a70658545f874c408ae84353f1dbf68, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
