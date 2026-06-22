@@ -20140,7 +20140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 2101418082}
-  targetScore: 2
+  targetScore: 5
   nextSceneName: Ende
 --- !u!4 &1702268393
 Transform:
